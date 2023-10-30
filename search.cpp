@@ -47,7 +47,7 @@ int main()
     cout << "1 is in the list (linear search): " << linearSearch(1, arr, n) << endl;
     cout << "5 is in the list (linear search): " << linearSearch(100, arr, n) << endl;
 
-    cout << "1 is in the list (bubble search): " << binarySearch(1, arr, n) << endl;
-    cout << "5 is in the list (bubble search): " << binarySearch(100, arr, n) << endl;
+    cout << "1 is in the list (binary search): " << binarySearch(1, arr, n) << endl;
+    cout << "5 is in the list (binary search): " << binarySearch(100, arr, n) << endl;
     return 0;
 }

@@ -13,7 +13,7 @@ void interchangeSort(int arr[], int n)
     while ( i < n)
     {
         int j,i, temp;
-        for (int j = i + 1; j < n; i++)
+        for (int j = i + 1; j < n; j++)
         {
             if ( arr[j] < arr[i] )
             {
@@ -22,20 +22,22 @@ void interchangeSort(int arr[], int n)
                 arr[j] = temp;
             }
         }
+        i++;
     }
 }
 
 /*
 Bubble sort and apply adaptive
+Interchange and bubble sort are the same
 */
 void bubbleSort(int arr[], int n)
 {
     int flag;
     for (int i=0; i < n - 1 ; i++)
     {
+        flag = 0;
         for (int j=0; j < n -1 - i; j ++ )
         {
-            flag = 0;
             if (arr[j] > arr[j+1])
             {
                 int temp = arr[j+1];

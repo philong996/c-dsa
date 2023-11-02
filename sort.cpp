@@ -36,6 +36,26 @@ void bubbleSort(int arr[], int n)
     }
 }
 
+/*
+Insertion sort
+it is adaptive for sorted array. It is just scan 1 time.
+*/
+void insertionSort(int arr[], int n)
+{
+    for (int i=1; i < n; i++)
+    {
+        int j = i - 1;
+        int current_value = arr[i];
+        while ( j >= 0 && arr[j] > current_value)
+        {
+            arr[j+1] = arr[j];
+            j--;
+        }
+        arr[j+1] = current_value;
+    }
+}
+
+
 // print array
 void printArray(int arr[], int n)
 {
@@ -52,8 +72,8 @@ int main()
 
     cout << "Original array: ";
     printArray(arr, n);
-    
-    bubbleSort(arr, n);
+
+    insertionSort(arr, n);
     
     cout << "The sorted array: ";
     printArray(arr, n);

@@ -8,46 +8,89 @@ struct Node
     struct Node *next;
 };
 
-
-void createLinkedList(int arr[], int n, struct Node* &first)
+void initializeNode(Node* node, int data)
 {
-    struct Node *t, *last;
+    node->data = data;
+    node->next = NULL;
+}
 
-    first = new Node;
-    first->data = arr[0];
-    first->next = NULL;
-    last = first;
+struct LinkedList
+{
+    struct Node *head;
+    struct Node *tail;
+    int length;
+};
 
-    for (int i=1; i < n; i++)
+void initializeLinkedList(LinkedList* list)
+{
+    list->head = NULL;
+    list->tail = NULL;
+    list->length = 0;
+}
+
+void appendFirst(LinkedList *list, Node *p)
+{
+    if (list->head == NULL)
     {
-        t = new Node;
-        t->data = arr[i];
-        t->next = NULL;
-
-        last->next = t;
-    
-        last = t;
+        list->head = p;
+        ++list->length;
+    }
+    else {
+        p->next = list->head;
+        list->head = p;
+        ++list->length;
     }
 }
 
-void displayLinkedList(struct Node *p)
+
+void appendArrayValues(int arr[], int n, LinkedList* list)
 {
+    struct Node *t;
+
+    for (int i=0; i < n; i++)
+    {
+        t = new Node;
+        initializeNode(t, arr[i]);
+        appendFirst(list, t);
+    }
+}
+
+void sortLinkedList(LinkedList* list)
+{
+    Node current;
+    bool swap;
+
+    while (swap)
+}
+
+void displayLinkedList(LinkedList *list)
+{
+    Node *p = list->head;
     while (p != NULL)
     {
         printf("%p - Node(data=%d next=%p )\n", p, p->data, p->next);
         p = p->next;
     }
+    printf("Length of the LinkedList is %d", list->length);
 }
+
 
 
 int main(int argc, char const *argv[])
 {
-    struct Node* first = NULL;
+    struct LinkedList myList;
+    initializeLinkedList(&myList);
     
     int arr[] = {1,3,5,7,9,11};
 
-    createLinkedList(arr, 6, first);
-    displayLinkedList(first);
+    appendArrayValues(arr, 6, &myList);
+
+    Node *newNode = new Node;
+    newNode->data = 13;
+    newNode->next = NULL;
+    appendFirst(&myList, newNode);
+
+    displayLinkedList(&myList);
 
     return 0;
 }

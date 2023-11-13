@@ -3,6 +3,15 @@
 
 using namespace std;
 
+// print array
+void printArray(int arr[], int n)
+{
+    for (int i = 0; i < n; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
 
 /*
 Bubble sort and apply adaptive
@@ -55,25 +64,62 @@ void insertionSort(int arr[], int n)
     }
 }
 
-
-// print array
-void printArray(int arr[], int n)
+/*
+Quick sort
+*/
+int quickSortPartitioning(int arr[], int low, int high, int n)
 {
-    for (int i = 0; i < n; i++) {
-        std::cout << arr[i] << " ";
+    int pivot = arr[low];
+    int i = low + 1;
+    int j = high;
+
+    while (i <= j)
+    {
+        while (i <= high & arr[i] <= pivot)
+        {
+            i++;
+        }
+
+        while (j > low & arr[j] >= pivot)
+        {
+            j--;
+        }
+
+        if (i < j)
+            swap(arr[i], arr[j]);
+        printArray(arr, n);
     }
-    std::cout << std::endl;
+
+    swap(arr[low], arr[j]);
+    return j;
 }
+
+void quickSort(int arr[], int low, int high, int n)
+{
+    if (low < high)
+    {
+        int middle = quickSortPartitioning(arr, low, high, n);
+        quickSort(arr, low, middle - 1, n);
+        quickSort(arr, middle + 1, high, n);
+    }
+}
+
 
 int main()
 {
-    int arr[] = {95, 45, 48, 98, 1, 485, 65, 478, 1, 2325};
+    int arr[] = {3, 6, 8, 10, 1, 2, 1};
     int n = sizeof(arr) / sizeof(arr[0]);
 
     cout << "Original array: ";
     printArray(arr, n);
 
-    insertionSort(arr, n);
+    // insertionSort(arr, n);
+    // selectionSort(arr, n);
+    // bubbleSort(arr, n);
+    quickSort(arr, 0, n - 1, n);
+
+    // int middle = quickSortPartitioning(arr, 0, n-1, n);
+    
     
     cout << "The sorted array: ";
     printArray(arr, n);

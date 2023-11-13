@@ -55,13 +55,13 @@ void appendArrayValues(int arr[], int n, LinkedList* list)
     }
 }
 
-void sortLinkedList(LinkedList* list)
-{
-    Node current;
-    bool swap;
+// void sortLinkedList(LinkedList* list)
+// {
+//     Node current;
+//     bool swap;
 
-    while (swap)
-}
+//     while (swap)
+// }
 
 void displayLinkedList(LinkedList *list)
 {

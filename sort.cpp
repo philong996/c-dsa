@@ -104,25 +104,87 @@ void quickSort(int arr[], int low, int high, int n)
     }
 }
 
+/*
+Merge sort
+*/
+void merge(int arr[], int low, int middle, int high)
+{
+    int i, j, k;
+    i = k = low;
+    j = middle + 1;
+    int temp[high + 1];
+
+    while ( i <= middle && j <= high)
+    {
+        if (arr[i] < arr[j])
+        {
+            temp[k++] = arr[i++];
+        }
+        else
+        {
+            temp[k++] = arr[j++];
+        }
+    }
+
+    while (i <= middle)
+    {
+        temp[k++] = arr[i++];
+    }
+
+    while (j <= high)
+    {
+        temp[k++] = arr[j++];
+    }
+
+    for (int p = low; p <= high; p++)
+    {
+        arr[p] = temp[p];
+    }
+
+}
+
+//TODO: debug when array is not oven 
+void iterativeMertgeSort(int arr[], int n)
+{
+    for (int curSize=1; curSize <= n - 1; curSize *= 2 )
+    {
+        for (int left = 0; left < n - 1; left += curSize * 2)
+        {
+            int right = left + 2 * curSize - 1;
+            int mid = (left + right) / 2;
+
+            merge(arr, left, mid, right);
+        }
+    }
+
+}
+
+
 
 int main()
 {
-    int arr[] = {3, 6, 8, 10, 1, 2, 1};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    // int arr[] = {3, 6, 8, 10, 1, 2, 1};
+    // int n = sizeof(arr) / sizeof(arr[0]);
 
-    cout << "Original array: ";
-    printArray(arr, n);
+    // cout << "Original array: ";
+    // printArray(arr, n);
 
     // insertionSort(arr, n);
     // selectionSort(arr, n);
     // bubbleSort(arr, n);
-    quickSort(arr, 0, n - 1, n);
+    // quickSort(arr, 0, n - 1, n);
 
-    // int middle = quickSortPartitioning(arr, 0, n-1, n);
+    int arr[] = {1, 15, 3, 17, 3, 5, 7, 12, 14};
+    iterativeMertgeSort(arr, 9);
+
+    // merge(arr, 0, 0, 1);
     
-    
-    cout << "The sorted array: ";
-    printArray(arr, n);
+    cout << "merge 2 array ";
+    printArray(arr, 9);
+
+
+    // cout << "The sorted array: ";
+    // printArray(arr, n);
 
     return 0;
 }

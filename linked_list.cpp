@@ -28,51 +28,129 @@ void initializeLinkedList(LinkedList* list)
     list->length = 0;
 }
 
-void appendFirst(LinkedList *list, Node *p)
+void appendFirst(LinkedList *list, int value)
 {
+    Node *p = new Node; 
+    initializeNode(p, value);
+
     if (list->head == NULL)
     {
         list->head = p;
-        ++list->length;
     }
     else {
         p->next = list->head;
         list->head = p;
-        ++list->length;
+        
     }
+    ++list->length;
 }
 
+void appendLast(LinkedList *list, int value)
+{
+    Node *p = new Node;
+    initializeNode(p, value);
+
+    if (list->head == NULL)
+    {
+        list->head = p;
+    }
+    else 
+    {
+        if (list->tail != NULL)
+        {
+            list->tail->next = p;
+        }
+        else
+        {
+            list->head->next = p;
+            list->tail = p;
+        }
+        list->tail = p;
+    }
+    ++list->length;
+
+}
 
 void appendArrayValues(int arr[], int n, LinkedList* list)
 {
-    struct Node *t;
 
     for (int i=0; i < n; i++)
     {
-        t = new Node;
-        initializeNode(t, arr[i]);
-        appendFirst(list, t);
+        appendLast(list, arr[i]);
     }
 }
 
-// void sortLinkedList(LinkedList* list)
-// {
-//     Node current;
-//     bool swap;
-
-//     while (swap)
-// }
-
-void displayLinkedList(LinkedList *list)
+void swap(Node *a, Node *b)
 {
-    Node *p = list->head;
+    int temp = a->data;
+
+    a->data = b->data;
+    b->data = temp;
+}
+
+void sortLinkedList(LinkedList* list)
+{
+    Node *i, *j;
+    int flag = 0;
+
+    for (i = list->head; i != list->tail; i = i->next)
+    {
+        for (j = i->next; j != NULL; j = j->next)
+        {
+            if (i->data > j->data)
+            {
+                swap(i, j);
+                flag = 1;
+            }
+        }
+        
+        if (flag == 0)
+            break;
+    }
+}
+
+void removeValue(LinkedList *list, int value)
+{
+    Node *temp = list->head;
+    Node *prev = NULL;
+
+    while (temp != NULL)
+    {
+        if (temp->data == value)
+        {
+            if (prev == NULL)
+            {
+                list->head = temp->next;
+                delete temp;
+                --list->length;
+                temp = list->head;
+            }
+            else
+            {
+                prev->next = temp->next;
+                --list->length;
+                delete temp;
+                temp = prev->next;
+            }
+        } else 
+        {
+            prev = temp;
+            temp = temp->next;            
+        }
+    }
+}
+
+void displayLinkedList(LinkedList list)
+{
+    Node *p = list.head;
     while (p != NULL)
     {
         printf("%p - Node(data=%d next=%p )\n", p, p->data, p->next);
         p = p->next;
     }
-    printf("Length of the LinkedList is %d", list->length);
+    printf("Length of the LinkedList is %d \n", list.length);
 }
+
 
 
 
@@ -85,12 +163,42 @@ int main(int argc, char const *argv[])
 
     appendArrayValues(arr, 6, &myList);
 
-    Node *newNode = new Node;
-    newNode->data = 13;
-    newNode->next = NULL;
-    appendFirst(&myList, newNode);
+    appendFirst(&myList, 13);
+    appendFirst(&myList, 18);
+    appendLast(&myList, 21);
+    appendLast(&myList, 1);
 
-    displayLinkedList(&myList);
+
+    displayLinkedList(myList);
+
+    sortLinkedList(&myList);
+
+    cout << "List after sorted " << endl;
+    displayLinkedList(myList);
+
+
+    removeValue(&myList, 21);
+    cout << "list after removing 21" << endl;
+    displayLinkedList(myList);
+
+    removeValue(&myList, 9);
+    cout << "list after removing 9" << endl;
+    displayLinkedList(myList);
+
+    removeValue(&myList, 1);
+    cout << "list after removing 1" << endl;
+    displayLinkedList(myList);
+
+
+    removeValue(&myList, 3);
+    removeValue(&myList, 5);
+    removeValue(&myList, 7);
+    removeValue(&myList, 11);
+    removeValue(&myList, 13);
+    removeValue(&myList, 18);
+
+    cout << "list after removing all elements" << endl;
+    displayLinkedList(myList);
 
     return 0;
 }

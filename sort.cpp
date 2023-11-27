@@ -143,7 +143,6 @@ void merge(int arr[], int low, int middle, int high)
 
 }
 
-//TODO: debug when array is not oven 
 void iterativeMertgeSort(int arr[], int n)
 {
     for (int curSize=1; curSize <= n - 1; curSize *= 2 )
@@ -156,7 +155,18 @@ void iterativeMertgeSort(int arr[], int n)
             merge(arr, left, mid, right);
         }
     }
+}
 
+void recursiveMergeSort(int arr[], int l, int h)
+{
+    if (l < h)
+    {
+        int mid = (l + h) / 2;
+
+        recursiveMergeSort(arr, l, mid);
+        recursiveMergeSort(arr, mid+1, h);
+        merge(arr, l, mid, h);
+    }
 }
 
 
@@ -173,18 +183,14 @@ int main()
     // selectionSort(arr, n);
     // bubbleSort(arr, n);
     // quickSort(arr, 0, n - 1, n);
+    // iterativeMertgeSort(arr, 9);
 
     int arr[] = {1, 15, 3, 17, 3, 5, 7, 12, 14};
-    iterativeMertgeSort(arr, 9);
+    int n = 9;
+    recursiveMergeSort(arr, 0, 8);
 
-    // merge(arr, 0, 0, 1);
-    
-    cout << "merge 2 array ";
-    printArray(arr, 9);
-
-
-    // cout << "The sorted array: ";
-    // printArray(arr, n);
+    cout << "The sorted array: ";
+    printArray(arr, n);
 
     return 0;
 }

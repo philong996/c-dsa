@@ -61,7 +61,23 @@ int pop(ArrayStack* stack)
     return stack->data[stack->top--];
 }
 
+int* peek(ArrayStack* stack, int index)
+{
+    if ((index > stack->size - 1) | (index > stack->top))
+    {
+        printf("Cannot get the index %d", index);
+        return nullptr;
+    }
 
+    int *result = &stack->data[index];
+
+    for (int i = index+1; i <= stack->top; i++)
+    {
+        stack->data[i - 1 ] = stack->data[i]; 
+    }
+
+    return result;
+}
 
 void printStack(ArrayStack &stack)
 {
@@ -78,12 +94,23 @@ int main()
 
     push(&stack, 10);
     push(&stack, 12);
+    push(&stack, 14);
+    push(&stack, 15);
+    push(&stack, 17);
+    push(&stack, 18);
 
     printStack(stack);
 
     int popValue = pop(&stack);
     printf("Value is pop from the stack %d \n", popValue);
 
+
+    int *peek_value = peek(&stack, 2);
+    if (peek_value == nullptr)
+        printf("Peek value is null\n");
+    else
+        printf("Peek value is %d \n", *peek_value);
+    
     printStack(stack);
 
     return 0;

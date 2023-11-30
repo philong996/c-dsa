@@ -1,15 +1,15 @@
-#include <iostream>
-#include <bits/stdc++.h> 
+#include <stdio.h>
+#include <stdlib.h>
 
-using namespace std;
 
 // print array
 void printArray(int arr[], int n)
 {
+    printf("{");
     for (int i = 0; i < n; i++) {
-        std::cout << arr[i] << " ";
+        printf("%d ", arr[i]);
     }
-    std::cout << std::endl;
+    printf("}\n");
 }
 
 
@@ -17,11 +17,11 @@ void printArray(int arr[], int n)
 Bubble sort and apply adaptive
 Interchange and bubble sort are the same
 */
-void swap(int& a, int& b)
+void swap(int *a, int *b)
 {
-    int temp = b;
-    b = a;
-    a = temp;
+    int temp = *b;
+    *b = *a;
+    *a = temp;
 }
 
 void bubbleSort(int arr[], int n)
@@ -34,7 +34,7 @@ void bubbleSort(int arr[], int n)
         {
             if (arr[j] > arr[j+1])
             {
-                swap(arr[j], arr[j+1]);
+                swap(&arr[j], &arr[j+1]);
                 flag = 1;
             }
         }
@@ -86,11 +86,10 @@ int quickSortPartitioning(int arr[], int low, int high, int n)
         }
 
         if (i < j)
-            swap(arr[i], arr[j]);
-        printArray(arr, n);
+            swap(&arr[i], &arr[j]);
     }
 
-    swap(arr[low], arr[j]);
+    swap(&arr[low], &arr[j]);
     return j;
 }
 
@@ -173,23 +172,51 @@ void recursiveMergeSort(int arr[], int l, int h)
 
 int main()
 {
-    // int arr[] = {3, 6, 8, 10, 1, 2, 1};
-    // int n = sizeof(arr) / sizeof(arr[0]);
+    
+    int arr[] = {3, 6, 8, 10, 1, 2, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printf("Original array: \n");
+    printArray(arr, n);
 
-    // cout << "Original array: ";
-    // printArray(arr, n);
+    printf("Select a sorting algorithm: \n");
+    printf("1. Bubble Sort\n");
+    printf("2. Selection Sort\n");
+    printf("3. Quick Sort\n");
+    printf("4. Iteractive Merge Sort\n");
+    printf("5. Recursive Merge Sort\n");
+    printf("Enter your choice : ");
+    int choice;
+    scanf("%d", &choice);
 
-    // insertionSort(arr, n);
-    // selectionSort(arr, n);
-    // bubbleSort(arr, n);
-    // quickSort(arr, 0, n - 1, n);
-    // iterativeMertgeSort(arr, 9);
+    switch (choice)
+    {
+    case 1:
+        bubbleSort(arr, n);
+        break;
+    
+    case 2:
+        insertionSort(arr, n);
+        break;
 
-    int arr[] = {1, 15, 3, 17, 3, 5, 7, 12, 14};
-    int n = 9;
-    recursiveMergeSort(arr, 0, 8);
+    case 3:
+        quickSort(arr, 0, n - 1, n);
+        break;
 
-    cout << "The sorted array: ";
+    case 4:
+        iterativeMertgeSort(arr, n);
+        break;
+
+    case 5:
+        recursiveMergeSort(arr, 0, n-1);
+        break;
+
+
+    default:
+        printf("No valid choice");
+        break;
+    }
+
+    printf("The sorted array: \n");
     printArray(arr, n);
 
     return 0;

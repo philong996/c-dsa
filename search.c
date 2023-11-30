@@ -1,6 +1,5 @@
-#include <iostream>
-
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 
 int linearSearch(int x, int arr[], int n)
 {
@@ -44,10 +43,10 @@ int main()
     int arr[] = {1, 2, 3, 4, 6, 7 ,9};
     int n = 3;
 
-    cout << "1 is in the list (linear search): " << linearSearch(1, arr, n) << endl;
-    cout << "5 is in the list (linear search): " << linearSearch(100, arr, n) << endl;
+    printf("1 is in the list (linear search): %d \n", linearSearch(1, arr, n)) ;
+    printf("5 is in the list (linear search): %d \n", linearSearch(100, arr, n));
 
-    cout << "1 is in the list (binary search): " << binarySearch(1, arr, n) << endl;
-    cout << "5 is in the list (binary search): " << binarySearch(100, arr, n) << endl;
+    printf("1 is in the list (binary search): %d \n", binarySearch(1, arr, n));
+    printf("5 is in the list (binary search): %d \n", binarySearch(100, arr, n));
     return 0;
 }

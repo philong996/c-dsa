@@ -1,6 +1,5 @@
-#include<iostream>
-
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 
 struct Node
 {
@@ -8,7 +7,7 @@ struct Node
     struct Node *next;
 };
 
-void initializeNode(Node* node, int data)
+void initializeNode(struct Node* node, int data)
 {
     node->data = data;
     node->next = NULL;
@@ -21,16 +20,16 @@ struct LinkedList
     int length;
 };
 
-void initializeLinkedList(LinkedList* list)
+void initializeLinkedList(struct LinkedList* list)
 {
     list->head = NULL;
     list->tail = NULL;
     list->length = 0;
 }
 
-void appendFirst(LinkedList *list, int value)
+void appendFirst(struct LinkedList *list, int value)
 {
-    Node *p = new Node; 
+    struct Node *p = (struct Node*)malloc(sizeof(struct Node)); 
     initializeNode(p, value);
 
     if (list->head == NULL)
@@ -45,9 +44,9 @@ void appendFirst(LinkedList *list, int value)
     ++list->length;
 }
 
-void appendLast(LinkedList *list, int value)
+void appendLast(struct LinkedList *list, int value)
 {
-    Node *p = new Node;
+    struct Node *p = (struct Node*)malloc(sizeof(struct Node));
     initializeNode(p, value);
 
     if (list->head == NULL)
@@ -71,7 +70,7 @@ void appendLast(LinkedList *list, int value)
 
 }
 
-void appendArrayValues(int arr[], int n, LinkedList* list)
+void appendArrayValues(int arr[], int n, struct LinkedList* list)
 {
 
     for (int i=0; i < n; i++)
@@ -80,7 +79,7 @@ void appendArrayValues(int arr[], int n, LinkedList* list)
     }
 }
 
-void swap(Node *a, Node *b)
+void swap(struct Node *a, struct Node *b)
 {
     int temp = a->data;
 
@@ -88,9 +87,9 @@ void swap(Node *a, Node *b)
     b->data = temp;
 }
 
-void sortLinkedList(LinkedList* list)
+void sortLinkedList(struct LinkedList* list)
 {
-    Node *i, *j;
+    struct Node *i, *j;
     int flag = 0;
 
     for (i = list->head; i != list->tail; i = i->next)
@@ -109,10 +108,10 @@ void sortLinkedList(LinkedList* list)
     }
 }
 
-void removeValue(LinkedList *list, int value)
+void removeValue(struct LinkedList *list, int value)
 {
-    Node *temp = list->head;
-    Node *prev = NULL;
+    struct Node *temp = list->head;
+    struct Node *prev = NULL;
 
     while (temp != NULL)
     {
@@ -121,7 +120,7 @@ void removeValue(LinkedList *list, int value)
             if (prev == NULL)
             {
                 list->head = temp->next;
-                delete temp;
+                free(temp);
                 --list->length;
                 temp = list->head;
             }
@@ -129,7 +128,7 @@ void removeValue(LinkedList *list, int value)
             {
                 prev->next = temp->next;
                 --list->length;
-                delete temp;
+                free(temp);
                 temp = prev->next;
             }
         } else 
@@ -140,9 +139,9 @@ void removeValue(LinkedList *list, int value)
     }
 }
 
-void displayLinkedList(LinkedList list)
+void displayLinkedList(struct LinkedList list)
 {
-    Node *p = list.head;
+    struct Node *p = list.head;
     while (p != NULL)
     {
         printf("%p - Node(data=%d next=%p )\n", p, p->data, p->next);
@@ -173,20 +172,20 @@ int main(int argc, char const *argv[])
 
     sortLinkedList(&myList);
 
-    cout << "List after sorted " << endl;
+    printf("List after sorted  \n");
     displayLinkedList(myList);
 
 
     removeValue(&myList, 21);
-    cout << "list after removing 21" << endl;
+    printf("list after removing 21 \n");
     displayLinkedList(myList);
 
     removeValue(&myList, 9);
-    cout << "list after removing 9" << endl;
+    printf("list after removing 9 \n");
     displayLinkedList(myList);
 
     removeValue(&myList, 1);
-    cout << "list after removing 1" << endl;
+    printf("list after removing 1 \n");
     displayLinkedList(myList);
 
 
@@ -197,7 +196,7 @@ int main(int argc, char const *argv[])
     removeValue(&myList, 13);
     removeValue(&myList, 18);
 
-    cout << "list after removing all elements" << endl;
+    printf("list after removing all elements \n");
     displayLinkedList(myList);
 
     return 0;

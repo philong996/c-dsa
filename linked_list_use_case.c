@@ -1,0 +1,9 @@
+/*
+Use linked list to store the information of employee
+
+insert operation
+sort operation with salary
+delete operation with the employee code
+search employee with employee code
+find the max salary of employees
+*/

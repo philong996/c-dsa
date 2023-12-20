@@ -115,7 +115,6 @@ struct TreeNode* dequeue(struct Queue* q)
 struct BinaryTree
 {
     struct TreeNode* root;
-    int height;
 };
 
 /*Initialize a tree*/
@@ -130,7 +129,6 @@ struct BinaryTree* initializeBinaryTree()
     }
 
     tree->root = NULL;
-    tree->height = 0;
     return tree;
 }
 

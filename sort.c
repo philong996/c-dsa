@@ -45,6 +45,45 @@ void bubbleSort(int arr[], int n)
     }
 }
 
+
+void interchangeSort(int *arr, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (arr[i] < arr[j])
+            {
+                swap(&arr[i], &arr[j]);
+            }
+        }
+        printf("Pass: %d - ", i+1);
+        printArray(arr, n);
+    }
+}
+
+
+void selectionSort(int arr[], int n)
+{
+    for (int i=0; i < n; i++)
+    {
+        int minIndex = i;
+        for (int j=i+1; j < n; j++)
+        {
+            if (arr[j] < arr[minIndex])
+            {
+                minIndex = j;
+            }
+        }
+
+        if (minIndex != i)
+        {
+            swap(&arr[i], &arr[minIndex]);
+        }
+    }
+}
+
+
 /*
 Insertion sort
 it is adaptive for sorted array. It is just scan 1 time.
@@ -180,10 +219,12 @@ int main()
 
     printf("Select a sorting algorithm: \n");
     printf("1. Bubble Sort\n");
-    printf("2. Selection Sort\n");
-    printf("3. Quick Sort\n");
-    printf("4. Iteractive Merge Sort\n");
-    printf("5. Recursive Merge Sort\n");
+    printf("2. Interchange Sort\n");
+    printf("3. Selection Sort\n");
+    printf("4. Insertion sort\n");
+    printf("5. Quick Sort\n");
+    printf("6. Iteractive Merge Sort\n");
+    printf("7. Recursive Merge Sort\n");
     printf("Enter your choice : ");
     int choice;
     scanf("%d", &choice);
@@ -193,20 +234,28 @@ int main()
     case 1:
         bubbleSort(arr, n);
         break;
-    
+
     case 2:
-        insertionSort(arr, n);
+        interchangeSort(arr, n);
         break;
 
     case 3:
-        quickSort(arr, 0, n - 1, n);
+        selectionSort(arr, n);
         break;
 
     case 4:
-        iterativeMertgeSort(arr, n);
+        insertionSort(arr, n);
         break;
 
     case 5:
+        quickSort(arr, 0, n - 1, n);
+        break;
+
+    case 6:
+        iterativeMertgeSort(arr, n);
+        break;
+
+    case 7:
         recursiveMergeSort(arr, 0, n-1);
         break;
 
